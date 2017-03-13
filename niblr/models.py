@@ -28,6 +28,7 @@ class Restaurant(models.Model):
 
 
 class UserRating(models.Model):
+    restaurant = models.ForeignKey(Restaurant)
     star_rating = models.IntegerField(default=5)
     comments = models.TextField(max_length=140)
     author = models.ForeignKey(User)
