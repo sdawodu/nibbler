@@ -2,15 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from geoposition.fields import GeopositionField
 
-
-CHEAP = '0'
-MIDRANGE = '1'
-EXPENSIVE = '2'
-PRICE_CLASSIFICATION = (
-    (CHEAP, 'Cheap'),
-    (MIDRANGE, 'Mid-range'),
-    (EXPENSIVE, 'Expensive'),
-)
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Cuisine(models.Model):
@@ -24,14 +16,25 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=64)
     position = GeopositionField()
     cuisine_category = models.ManyToManyField(Cuisine)
-    price_classification = models.CharField(
-        choices=PRICE_CLASSIFICATION,
-        default=MIDRANGE,
-        max_length=12,
-    )
+    price_classification = models.IntegerField(
+        default=1,
+        validators=[MaxValueValidator(5), MinValueValidator(1)]
+     )
 
     def __str__(self):
         return self.name
+
+    @property
+    def avg_rating(self):
+        all_ratings = [i.star_rating for i in self.userrating_set.all()]
+        return (sum(all_ratings)/ len(all_ratings))
+
+    def dict_repr(self):
+        return {
+            'name': self.name,
+            'cuisine_categories': [i.name for i in self.cuisine_category.all()],
+            'price_classification': self.price_classification
+        }
 
     class Meta:
         unique_together = ('name', 'position')
