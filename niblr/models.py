@@ -14,7 +14,7 @@ PRICE_CLASSIFICATION = (
 
 
 class Cuisine(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name
@@ -32,13 +32,21 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        unique_together = ('name', 'position')
+
 
 class UserRating(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     star_rating = models.IntegerField(default=5)
-    comments = models.TextField(max_length=140)
+    comments = models.TextField(
+        max_length=140,
+        help_text="Keep it under 140 chars"
+    )
     author = models.ForeignKey(User)
 
     def __str__(self):
         return "{0}-{1}".format(self.author, self.restaurant)
 
+    class Meta:
+        unique_together = ('author', 'restaurant')
