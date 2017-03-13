@@ -1,0 +1,8 @@
+{
+  "name": "Nibbler:",
+  "description": "We gets the foods",
+  "image": "heroku/python",
+  "repository": "https://github.com/zsoobhan/nibbler/",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}
