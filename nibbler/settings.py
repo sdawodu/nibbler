@@ -121,6 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ.get('GEOPOSITION_GOOGLE_MAPS_API_KEY')
+
 try:
     from .local import *  # noQA
 except ModuleNotFoundError:
