@@ -3,3 +3,4 @@ psycopg2==2.7
 django-geoposition==0.3.0
 django-jsonview==1.0.0
 requests==2.13.0
+gunicorn==19.7.0
