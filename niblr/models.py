@@ -54,7 +54,7 @@ class Restaurant(models.Model):
 
     class Meta:
         unique_together = ('name', 'position')
-        ordering = ('-minutes_walk',)
+        ordering = ('-minutes_walk', )
 
 
 class UserRating(models.Model):

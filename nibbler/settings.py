@@ -121,4 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from .local import *  # noQA
+try:
+    from .local import *  # noQA
+except ModuleNotFoundError:
+    pass
