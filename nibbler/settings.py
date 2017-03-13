@@ -128,6 +128,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ.get('GEOPOSITION_GOOGLE_MAPS_API_KEY')
 
 try:
