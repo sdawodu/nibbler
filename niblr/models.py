@@ -5,6 +5,9 @@ from geoposition.fields import GeopositionField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+from . import utils
+
+
 class Cuisine(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
@@ -20,6 +23,7 @@ class Restaurant(models.Model):
         default=1,
         validators=[MaxValueValidator(5), MinValueValidator(1)]
      )
+    minutes_walk = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +31,10 @@ class Restaurant(models.Model):
     @property
     def avg_rating(self):
         all_ratings = [i.star_rating for i in self.userrating_set.all()]
-        return (sum(all_ratings) / len(all_ratings))
+        try:
+            return (sum(all_ratings) / len(all_ratings))
+        except ZeroDivisionError:
+            return 0
 
     @property
     def dict_repr(self):
@@ -36,10 +43,18 @@ class Restaurant(models.Model):
             'cuisine_categories': [i.name for i in self.cuisine_category.all()],
             'price_classification': self.price_classification,
             'avg_rating': self.avg_rating,
+
+            'comments': [i.comments for i in self.userrating_set.all()]
         }
+
+    def save(self, *args, **kwargs):
+        if not self.minutes_walk:
+            self.minutes_walk = round(utils.get_walking_time(self.position) / 60)
+        return super(Restaurant, self).save(*args, **kwargs)
 
     class Meta:
         unique_together = ('name', 'position')
+        ordering = ('-minutes_walk',)
 
 
 class UserRating(models.Model):
