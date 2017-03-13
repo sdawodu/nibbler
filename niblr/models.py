@@ -27,13 +27,15 @@ class Restaurant(models.Model):
     @property
     def avg_rating(self):
         all_ratings = [i.star_rating for i in self.userrating_set.all()]
-        return (sum(all_ratings)/ len(all_ratings))
+        return (sum(all_ratings) / len(all_ratings))
 
+    @property
     def dict_repr(self):
         return {
             'name': self.name,
             'cuisine_categories': [i.name for i in self.cuisine_category.all()],
-            'price_classification': self.price_classification
+            'price_classification': self.price_classification,
+            'avg_rating': self.avg_rating,
         }
 
     class Meta:

@@ -10,8 +10,7 @@ MVP:
 - `@niblr` bot on hipchat with the following functions:
 - `@niblr random` — returns a random restaurant with link to google maps
 - `@niblr thai` — returns a list of thai restaurants
-- `@niblr thai cost:+£££ order:-distance` — returns a list of thai restaurants
-   ordered by price descending then distance ascending
+- `@niblr thai cost:+£££`  — returns a list of thai restaurants filtered and ordered by price 
 
 Extensions:
 
