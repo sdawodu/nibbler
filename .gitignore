@@ -1,2 +1,3 @@
 *.pyc
+nibbler/local.py
 *.sqlite3
