@@ -121,9 +121,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-OFFICE_LATITUDE = 51.491759
-OFFICE_LONGITUDE = -0.227260
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
