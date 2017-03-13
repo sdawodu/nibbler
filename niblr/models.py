@@ -43,7 +43,7 @@ class Restaurant(models.Model):
             'cuisine_categories': [i.name for i in self.cuisine_category.all()],
             'price_classification': self.price_classification,
             'avg_rating': self.avg_rating,
-            'comments': [i.comments for i in self.userrating_set.all()],
+            'ratings': [i.dict_repr for i in self.userrating_set.all()],
             'minutes_walk': self.minutes_walk,
         }
 
@@ -71,3 +71,11 @@ class UserRating(models.Model):
 
     class Meta:
         unique_together = ('author', 'restaurant')
+
+    @property
+    def dict_repr(self):
+        return {
+            'author': self.author.username,
+            'comments': self.comments,
+            'star_rating': self.star_rating,
+        }
