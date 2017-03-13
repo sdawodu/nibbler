@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import User
+from django.contrib.auth.models import User
 from geoposition.fields import GeopositionField
 
 
@@ -9,20 +9,21 @@ EXPENSIVE = 2
 PRICE_CLASSIFICATION = (
     (CHEAP, 'Low'),
     (MIDRANGE, 'Normal'),
-    (HIGH, 'High'),
+    (EXPENSIVE, 'High'),
 )
 
-# Create your models here.
+
 class Cuisine(models.Model):
     name = models.CharField(max_length=64)
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=64)
     position = GeopositionField()
-    cuisine_category = models.ManyToManyField()
+    cuisine_category = models.ManyToManyField(Cuisine)
     price_classification = models.CharField(
         choices=PRICE_CLASSIFICATION,
-        default=MIDRANGE
+        default=MIDRANGE,
+        max_length=12,
     )
 
 

@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Cuisine, Restaurant, UserRating
+
+
+admin.site.register(Cuisine)
+admin.site.register(Restaurant)
+admin.site.register(UserRating)
