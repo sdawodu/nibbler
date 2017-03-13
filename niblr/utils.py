@@ -1,5 +1,4 @@
 import requests
-import json
 from django.conf import settings
 
 
@@ -29,5 +28,3 @@ def get_walking_time(position):
         return sum([i['duration']['value'] for i in best_route['legs']])
     else:
         return 60000
-
-

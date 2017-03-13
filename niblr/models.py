@@ -43,8 +43,8 @@ class Restaurant(models.Model):
             'cuisine_categories': [i.name for i in self.cuisine_category.all()],
             'price_classification': self.price_classification,
             'avg_rating': self.avg_rating,
-
-            'comments': [i.comments for i in self.userrating_set.all()]
+            'comments': [i.comments for i in self.userrating_set.all()],
+            'minutes_walk': self.minutes_walk,
         }
 
     def save(self, *args, **kwargs):
