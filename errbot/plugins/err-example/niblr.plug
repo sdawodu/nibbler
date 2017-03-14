@@ -1,0 +1,9 @@
+[Core]
+Name = Niblr
+Module = niblr
+
+[Documentation]
+Description = Tell me what to eat
+
+[Python]
+Version = 2+
