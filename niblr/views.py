@@ -25,7 +25,6 @@ class RestaurantListView(ListView):
         return super(RestaurantListView, self).dispatch(*args, **kwargs)
 
     def get(self, request):
-
         qset = super(RestaurantListView, self).get_queryset()
 
         cuisine = self.request.GET.get('cuisine')

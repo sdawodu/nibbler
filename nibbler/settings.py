@@ -22,7 +22,8 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_@k=l)kb(%j&31rc62=^^-(-#r49bj--6mq!*n9@3_ndvl&x1k'
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'changeme')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -58,7 +59,9 @@ ROOT_URLCONF = 'nibbler.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_ROOT, "templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,9 +122,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-OFFICE_LATITUDE = 51.491759
-OFFICE_LONGITUDE = -0.227260
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -131,9 +131,10 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
-
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ.get('GEOPOSITION_GOOGLE_MAPS_API_KEY')
+OFFICE_LATITUDE = 51.491759
+OFFICE_LONGITUDE = -0.227260
 
 try:
     from .local import *  # noQA
